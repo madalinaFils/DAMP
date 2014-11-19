@@ -1,0 +1,88 @@
+package com.example.listaimagini;
+
+
+
+import java.util.ArrayList;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+
+public class MainActivity extends Activity {
+	ArrayList<Image> listObject=new ArrayList<Image>();
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		final ListView options=(ListView)findViewById(R.id.listViewOptiuni);
+		listObject.add(new Image(R.drawable.img_animal10, R.drawable.img_animal11, R.drawable.img_animal13));
+		listObject.add(new Image(R.drawable.img_animal12, R.drawable.img_animal15, R.drawable.img_animal16));
+		listObject.add(new Image(R.drawable.img_animal14, R.drawable.img_animal13, R.drawable.img_animal10));
+		listObject.add(new Image(R.drawable.img_animal12, R.drawable.img_animal15, R.drawable.img_animal16));
+		listObject.add(new Image(R.drawable.img_animal12, R.drawable.ic_launcher, R.drawable.img_animal16));
+		 options.setAdapter(new MyAdapter(MainActivity.this, R.layout.imagine, new String[]{"","","","",""}, listObject));
+		 
+	}
+	public class MyAdapter extends ArrayAdapter<String>
+	{
+
+
+		ArrayList<Image> pictures;
+		public MyAdapter(Context context, int resource, String[] objects,ArrayList<Image> pictures) {
+			super(context, resource, objects);
+			// TODO Auto-generated constructor stub
+
+			this.pictures=pictures;
+		}
+
+		@Override
+		public View getDropDownView(int position, View convertView,
+				ViewGroup parent) {
+			// TODO Auto-generated method stub
+			return getCustomView(position, convertView, parent);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			return getCustomView(position, convertView, parent);
+		}
+		
+		public View getCustomView(int position, View convertView,
+			    ViewGroup parent) {
+			   // TODO Auto-generated method stub
+			   // return super.getView(position, convertView, parent);
+
+
+			   LayoutInflater inflater = getLayoutInflater();
+			   View row = inflater.inflate(R.layout.imagine, parent, false);
+
+
+
+			   ImageView icon = (ImageView) row.findViewById(R.id.imageView3);
+			   icon.setImageResource(pictures.get(position).getId_photo_1());
+			   ImageView icon1= (ImageView) row.findViewById(R.id.imageView1);
+			   icon1.setImageResource(pictures.get(position).getId_photo_2());
+			   ImageView icon2= (ImageView) row.findViewById(R.id.imageView2);
+			   icon2.setImageResource(pictures.get(position).getId_photo_3());
+			   
+			   return row;
+			  }
+		
+	}
+
+}
